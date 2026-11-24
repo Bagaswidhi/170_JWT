@@ -14,13 +14,13 @@ async function register(req, res) {
             return res.status(409).json({message: 'Email already exists'});
         }
         const hashedPassword = await bcrypt.hash(password, 10);
-        const User = await User.create({
+        const user = await User.create({
             email,
             password: hashedPassword
         });
         return res.status(201).json({
             message: 'Register Berhasil',
-            data: { id: User.id, email: User.email},
+            data: { id: user.id, email: user.email},
         });
     } catch (error) {
         return res.status(500).json({ message: error.message});
